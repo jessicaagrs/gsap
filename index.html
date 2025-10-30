@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Guia Completo de GSAP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        color: #667eea;
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5em;
+      }
+
+      .section {
+        margin-bottom: 50px;
+        padding: 30px;
+        background: #f8f9fa;
+        border-radius: 15px;
+        border-left: 5px solid #667eea;
+      }
+
+      h2 {
+        color: #764ba2;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+      }
+
+      h3 {
+        color: #667eea;
+        margin: 20px 0 15px 0;
+        font-size: 1.3em;
+      }
+
+      .demo-box {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 10px;
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      .demo-area {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin: 20px 0;
+        min-height: 150px;
+        border: 2px dashed #667eea;
+      }
+
+      button {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 5px;
+        transition: transform 0.2s;
+      }
+
+      button:hover {
+        background: #764ba2;
+        transform: translateY(-2px);
+      }
+
+      code {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 8px;
+        display: block;
+        margin: 15px 0;
+        overflow-x: auto;
+        font-family: 'Courier New', monospace;
+        line-height: 1.6;
+      }
+
+      .rule {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .tip {
+        background: #d1ecf1;
+        border-left: 4px solid #0c5460;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .stagger-box {
+        width: 60px;
+        height: 60px;
+        background: #667eea;
+        border-radius: 8px;
+        margin: 10px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📚 Guia Completo de GSAP</h1>
+
+      <div class="section">
+        <h2>1. Métodos Principais do GSAP</h2>
+
+        <h3>gsap.to() - Animar PARA um estado</h3>
+        <p>
+          O método mais usado. Anima do estado atual para o estado especificado.
+        </p>
+        <code
+          >gsap.to(".elemento", { x: 200, // Move 200px para direita y: 100, //
+          Move 100px para baixo rotation: 360, // Rotaciona 360 graus duration:
+          1, // Duração de 1 segundo ease: "power2.out" // Tipo de easing
+          });</code
+        >
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box1"
+          >
+            TO
+          </div>
+          <button onclick="animateTo()">Animar TO</button>
+        </div>
+
+        <h3>gsap.from() - Animar DE um estado</h3>
+        <p>Anima de um estado específico para o estado atual do elemento.</p>
+        <code
+          >gsap.from(".elemento", { x: -200, // Começa 200px à esquerda opacity:
+          0, // Começa invisível duration: 1, ease: "back.out" });</code
+        >
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box2"
+          >
+            FROM
+          </div>
+          <button onclick="animateFrom()">Animar FROM</button>
+        </div>
+
+        <h3>gsap.fromTo() - Controle total</h3>
+        <p>Define tanto o estado inicial quanto o final.</p>
+        <code
+          >gsap.fromTo(".elemento", { x: -200, opacity: 0 }, // Estado inicial {
+          x: 200, opacity: 1, duration: 1 } // Estado final );</code
+        >
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box3"
+          >
+            FROMTO
+          </div>
+          <button onclick="animateFromTo()">Animar FROMTO</button>
+        </div>
+
+        <h3>gsap.set() - Define propriedades sem animar</h3>
+        <p>Útil para configurar estado inicial instantaneamente.</p>
+        <code>gsap.set(".elemento", { x: 100, y: 50, opacity: 0.5 });</code>
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box4"
+          >
+            SET
+          </div>
+          <button onclick="animateSet()">Aplicar SET</button>
+          <button onclick="resetBox4()">Reset</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>2. Propriedades Principais</h2>
+
+        <h3>Transformações</h3>
+        <code
+          >gsap.to(".elemento", { x: 100, // translateX y: 50, // translateY
+          rotation: 360, // rotate em graus rotationX: 180, // rotate 3D no eixo
+          X rotationY: 180, // rotate 3D no eixo Y scale: 2, // escala geral
+          scaleX: 1.5, // escala no eixo X scaleY: 0.5, // escala no eixo Y
+          skewX: 20, // inclinar no eixo X transformOrigin: "center center" //
+          ponto de origem });</code
+        >
+
+        <h3>Visual</h3>
+        <code
+          >gsap.to(".elemento", { opacity: 0.5, // transparência
+          backgroundColor: "#ff0000", // cor de fundo borderRadius: "50%", //
+          borda arredondada width: 200, // largura height: 200 // altura
+          });</code
+        >
+
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box5"
+          >
+            PROPS
+          </div>
+          <button onclick="animateProps()">Animar Propriedades</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>3. Controle de Timing</h2>
+
+        <code
+          >gsap.to(".elemento", { x: 200, duration: 2, // Duração em segundos
+          delay: 0.5, // Atraso antes de iniciar repeat: 2, // Repetir 2 vezes
+          (total 3x) repeatDelay: 0.5, // Delay entre repetições yoyo: true, //
+          Inverte na repetição ease: "power2.inOut" // Curva de aceleração
+          });</code
+        >
+
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box6"
+          >
+            TIMING
+          </div>
+          <button onclick="animateTiming()">Animar com Timing</button>
+        </div>
+
+        <div class="rule">
+          <strong>⚠️ Regra:</strong> A duração padrão é 0.5s. Sempre defina
+          duration para animações personalizadas.
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>4. Tipos de Easing</h2>
+
+        <code
+          >// Easing mais comuns: "none" // Linear "power1.out" // Suave no
+          final "power2.out" // Mais suave "power3.out" // Ainda mais suave
+          "back.out" // Ultrapassa e volta "elastic.out" // Efeito elástico
+          "bounce.out" // Efeito de quique "circ.inOut" // Circular "expo.inOut"
+          // Exponencial</code
+        >
+
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box7"
+          >
+            EASE
+          </div>
+          <button onclick="animateEase('power1.out')">Power1</button>
+          <button onclick="animateEase('back.out')">Back</button>
+          <button onclick="animateEase('elastic.out')">Elastic</button>
+          <button onclick="animateEase('bounce.out')">Bounce</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>5. Timeline - Sequência de Animações</h2>
+
+        <code
+          >const tl = gsap.timeline(); tl.to(".box1", { x: 200, duration: 1 })
+          .to(".box2", { y: 100, duration: 1 }) // Após box1 .to(".box3", {
+          rotation: 360 }, "-=0.5"); // 0.5s antes do fim</code
+        >
+
+        <div class="demo-area">
+          <div
+            class="demo-box stagger-box"
+            id="tl1"
+          >
+            1
+          </div>
+          <div
+            class="demo-box stagger-box"
+            id="tl2"
+          >
+            2
+          </div>
+          <div
+            class="demo-box stagger-box"
+            id="tl3"
+          >
+            3
+          </div>
+          <br />
+          <button onclick="animateTimeline()">Animar Timeline</button>
+        </div>
+
+        <div class="tip">
+          <strong>💡 Dica:</strong> Use timeline para controlar múltiplas
+          animações como uma unidade. Você pode pausar, reverter e controlar
+          toda a sequência.
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>6. Stagger - Animação em Cascata</h2>
+
+        <code
+          >gsap.to(".boxes", { x: 200, duration: 1, stagger: 0.2 // 0.2s de
+          delay entre cada elemento }); // Stagger avançado stagger: { amount:
+          1, // Total de tempo para distribuir from: "center", // De onde
+          começa: start, center, end ease: "power1.in" }</code
+        >
+
+        <div class="demo-area">
+          <div
+            class="stagger-box"
+            id="st1"
+          ></div>
+          <div
+            class="stagger-box"
+            id="st2"
+          ></div>
+          <div
+            class="stagger-box"
+            id="st3"
+          ></div>
+          <div
+            class="stagger-box"
+            id="st4"
+          ></div>
+          <div
+            class="stagger-box"
+            id="st5"
+          ></div>
+          <br />
+          <button onclick="animateStagger()">Animar Stagger</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>7. Callbacks - Eventos</h2>
+
+        <code
+          >gsap.to(".elemento", { x: 200, duration: 1, onStart: () =>
+          console.log("Iniciou"), onUpdate: () => console.log("Atualizando"),
+          onComplete: () => console.log("Completou"), onRepeat: () =>
+          console.log("Repetiu"), onReverseComplete: () => console.log("Reversão
+          completa") });</code
+        >
+
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box8"
+          >
+            CALLBACK
+          </div>
+          <button onclick="animateCallback()">Animar com Callback</button>
+          <p
+            id="callback-status"
+            style="margin-top: 10px; font-weight: bold"
+          ></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>8. Controle de Animações</h2>
+
+        <code
+          >const anim = gsap.to(".elemento", { x: 200, duration: 2 });
+          anim.pause(); // Pausa anim.play(); // Resume anim.reverse(); //
+          Inverte anim.restart(); // Reinicia anim.kill(); // Mata a animação
+          anim.progress(0.5); // Vai para 50% da animação anim.timeScale(2); //
+          2x mais rápido</code
+        >
+
+        <div class="demo-area">
+          <div
+            class="demo-box"
+            id="box9"
+          >
+            CONTROL
+          </div>
+          <button onclick="controlPlay()">Play</button>
+          <button onclick="controlPause()">Pause</button>
+          <button onclick="controlReverse()">Reverse</button>
+          <button onclick="controlRestart()">Restart</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📋 Regras e Boas Práticas</h2>
+
+        <div class="rule">
+          <strong>1.</strong> Sempre use transforms (x, y, scale, rotation) ao
+          invés de top/left para melhor performance.
+        </div>
+
+        <div class="rule">
+          <strong>2.</strong> Defina duration explicitamente. O padrão (0.5s)
+          pode não ser o ideal.
+        </div>
+
+        <div class="rule">
+          <strong>3.</strong> Use timeline para sequências complexas. É mais
+          fácil de controlar e manter.
+        </div>
+
+        <div class="rule">
+          <strong>4.</strong> Armazene animações em variáveis se precisar
+          controlá-las depois.
+        </div>
+
+        <div class="rule">
+          <strong>5.</strong> Use gsap.set() para configurar estado inicial ao
+          invés de CSS quando possível.
+        </div>
+
+        <div class="tip">
+          <strong>💡 Performance:</strong> GSAP usa transforms e opacity que são
+          aceleradas por GPU. Evite animar width, height, top, left quando
+          possível.
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>9. Exemplo Completo</h2>
+
+        <code
+          >// Animação completa com timeline const tl = gsap.timeline({
+          defaults: { duration: 0.8, ease: "power2.out" } }); tl.from(".header",
+          { y: -100, opacity: 0 }) .from(".content", { x: -50, opacity: 0 },
+          "-=0.4") .from(".button", { scale: 0, opacity: 0, stagger: 0.1 })
+          .to(".highlight", { backgroundColor: "#ffff00", repeat: 2, yoyo: true
+          });</code
+        >
+      </div>
+    </div>
+
+    <script>
+      let controlAnim;
+
+      function animateTo() {
+        gsap.to('#box1', { x: 200, duration: 1, ease: 'power2.out' });
+      }
+
+      function animateFrom() {
+        gsap.from('#box2', {
+          x: -200,
+          opacity: 0,
+          duration: 1,
+          ease: 'back.out',
+        });
+      }
+
+      function animateFromTo() {
+        gsap.fromTo(
+          '#box3',
+          { x: -200, opacity: 0 },
+          { x: 200, opacity: 1, duration: 1, ease: 'power2.inOut' }
+        );
+      }
+
+      function animateSet() {
+        gsap.set('#box4', { x: 100, y: 50, rotation: 45, scale: 1.5 });
+      }
+
+      function resetBox4() {
+        gsap.set('#box4', { x: 0, y: 0, rotation: 0, scale: 1 });
+      }
+
+      function animateProps() {
+        gsap.to('#box5', {
+          rotation: 360,
+          scale: 1.5,
+          backgroundColor: '#ff6b6b',
+          borderRadius: '50%',
+          duration: 1.5,
+          ease: 'back.out',
+          yoyo: true,
+          repeat: 1,
+        });
+      }
+
+      function animateTiming() {
+        gsap.to('#box6', {
+          x: 200,
+          duration: 1,
+          delay: 0.3,
+          repeat: 2,
+          yoyo: true,
+          ease: 'power2.inOut',
+        });
+      }
+
+      function animateEase(easeType) {
+        gsap.to('#box7', {
+          x: 250,
+          duration: 1.5,
+          ease: easeType,
+          yoyo: true,
+          repeat: 1,
+        });
+      }
+
+      function animateTimeline() {
+        const tl = gsap.timeline();
+        tl.to('#tl1', { x: 150, duration: 0.5 })
+          .to('#tl2', { y: 50, duration: 0.5 })
+          .to('#tl3', { rotation: 360, duration: 0.5 }, '-=0.25');
+      }
+
+      function animateStagger() {
+        gsap.to('.stagger-box', {
+          y: 50,
+          rotation: 360,
+          backgroundColor: '#764ba2',
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'back.out',
+          yoyo: true,
+          repeat: 1,
+        });
+      }
+
+      function animateCallback() {
+        const status = document.getElementById('callback-status');
+        gsap.to('#box8', {
+          x: 200,
+          duration: 1.5,
+          onStart: () => (status.textContent = '▶️ Animação iniciada'),
+          onUpdate: () => (status.textContent = '🔄 Animando...'),
+          onComplete: () => (status.textContent = '✅ Animação completa!'),
+        });
+      }
+
+      function controlPlay() {
+        if (!controlAnim) {
+          controlAnim = gsap.to('#box9', { x: 300, duration: 3, ease: 'none' });
+        }
+        controlAnim.play();
+      }
+
+      function controlPause() {
+        if (controlAnim) controlAnim.pause();
+      }
+
+      function controlReverse() {
+        if (controlAnim) controlAnim.reverse();
+      }
+
+      function controlRestart() {
+        if (controlAnim) controlAnim.restart();
+      }
+
+      // Animação de entrada
+      gsap.from('.container', {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.out',
+      });
+    </script>
+  </body>
+</html>
